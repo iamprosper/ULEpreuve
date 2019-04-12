@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EtablissementController!{% endblock %}
+
+{% block body %}
+	<h1>Voici la liste des établissements</h1>
+	<table class="table table-hover">
+		<thead>
+			<tr class="table-active">
+			  <th scope="row">Etablissements</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for etablissement in etablissements %}
+		    <tr class="table-light">
+		      <td>{{etablissement}}</td>
+		    </tr>
+			{% endfor %}
+		</tbody>
+	</table> 
+	<a href="{{path('etablissement_create')}}"><button class="btn btn-info">Ajouter un nouvel établissement</button></a>
+{% endblock %}

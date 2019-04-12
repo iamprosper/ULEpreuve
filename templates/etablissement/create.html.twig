@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1>Création d'un établissement</h1>
+    {{ form_start(formEtablissement) }}
+    {{ form_row(formEtablissement.libelle,{
+    	'attr':{'placeholder':'Libelle'}
+    }) }}
+    <button class="btn btn-success" type="submit">Enregistrer</button>
+    {{ form_end(formEtablissement) }}
+
+{% endblock %}

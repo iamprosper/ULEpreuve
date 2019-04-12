@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Création d'un département</h1>
+    {{form_start(formDepartement)}}
+    
+    {{form_row(formDepartement.libelle,{
+    	'attr':{'placeholder':'Nom du département'}
+    	}
+    )}}
+    
+    {{form_row(formDepartement.etablissement,{
+    	'attr':{'placeholder':"Nom de l'établissement "}
+    	}
+    )}}
+    
+    <button type="submit" class="btn btn-success">Ajouter</button>
+    
+    {{form_end(formDepartement)}}
+{% endblock %}

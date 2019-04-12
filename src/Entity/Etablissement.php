@@ -50,6 +50,7 @@ class Etablissement
         return $this;
     }
 
+
     /**
      * @return Collection|Departement[]
      */
@@ -79,5 +80,13 @@ class Etablissement
         }
 
         return $this;
+    }
+    /**
+    * toString
+    * @return string
+    */
+    public function __toString()
+    {
+       return $this->libelle;
     }
 }
