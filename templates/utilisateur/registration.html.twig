@@ -1,0 +1,38 @@
+{% extends 'baseUser.html.twig' %}
+
+{% block title %}Enregistrement{% endblock %}
+
+{% block body %}
+
+    <h1>INSCRIPTION</h1>
+        {{form_start(form)}}
+        {{form_row(form.username,{'class':'form form-control'})}}
+        {{form_row(form.email,{'class':'form form-control'})}}
+        {{form_row(form.nom,{'class':'form form-control'})}}
+        {{form_row(form.prenom,{'class':'form form-control'})}}
+        {{form_row(form.sexe,{'class':'form form-control'})}}
+        {{form_row(form.dateNaissance,{'class':'form form-control'})}}
+        {{form_row(form.password,{'class':'form form-control'})}}
+        {{form_row(form.confirm_password,{'class':'form form-control'})}}
+        <button id="enreg" class="btn btn-default" >Enregister</button>
+        <button class="btn btn-default" >Annuler</button>
+        {{form_end(form)}}
+        <script type="text/javascript">
+                $("#enreg").click(function(){
+                    $.ajax({
+                        url: "{{path('utilisateur_add')}}",
+                        type:'POST',
+                        dataType:"json",
+                        data:"username="+$(":username").val()+"&email="+$(":email").val()+"nom="+$(":nom").val()+"&prenom="+$(":prenom").val()+"&sexe="+$(":sexe").val()+"&dateNaissance="+$(":dateNaissance").val()+"&password="+$(":password").val()+"&confirm_password="+$(":confirm_password").val(),
+                        success:function(data){
+                            $(this).css("background-color","black");
+                        		alert("Valide");
+                        }    
+                    });
+                    alert("TOGO ");
+                });  
+    </script>
+{% endblock %}
+
+
+

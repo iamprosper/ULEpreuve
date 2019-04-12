@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>UL-TOGO Projet</title>
+    <!-- Bootstrap core CSS -->
+    <link href="{{ asset('css/bootstrap.css')}}" rel="stylesheet">
+    <!-- Fontawesome core CSS -->
+    <link href="{{ asset('css/font-awesome.min.css')}}" rel="stylesheet" />
+    <!--GOOGLE FONT -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <!--Slide Show Css -->
+    <link href="{{ asset('ItemSlider/css/main-style.css')}}" rel="stylesheet" />
+    <!-- custom CSS here -->
+    <link href="{{ asset('css/style.css')}}" rel="stylesheet" />
+    <link href="{{ asset('boostrap/css/boostrap.mini.css')}}" rel="stylesheet" />
+    {# <script src="{{asset('js/jquery-1.10.2.js')}}"></scr
+    
+    {# <link href="{{ asset('boostrap/js/boostrap.mini.js')}}" rel="stylesheet" /> #}
+</head>
+<body>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><strong>Univers</strong>-Savoir</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Acceuil</a></li>
+                    <li><a href="#">Epreuves-corrigees des devoirs et examen UL</a></li>
+                    <li><a href="#">Emploi</a></li>
+                    <li><a href="#">Forum</a></li>
+                    <li><a href="#">Actualites</a></li>
+                    {% if not app.user  %}
+                        <li><a href="{{ path('login') }}">Se connecter</a></li>
+                        <li><a href="{{ path('utilisateur_add') }}">S'enregistrer</a></li>
+                    {% else %}
+                        <li><a href="{{ path('logout') }}">Se deconnecter</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Profil <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><strong>Nom utilisateur: </strong>...</a></li>
+                                <li><a href="#"><strong>Notification: </strong>1..</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#"><strong>info: </strong>
+                                    <div>
+                                        Connectee<br />
+                                        Details
+                                    </div>
+                                </a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                </ul>
+                <form class="navbar-form navbar-right" role="search">
+                    <div class="form-group">
+                        <input type="text" placeholder="Entrez vos recherche" class="form-control">
+                    </div>
+                    &nbsp; 
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <div class="container">
+        {% block body %}
+            
+
+
+        {# contenu blabla .......... #}
+
+
+
+        {% endblock %}
+    </div>
+
+    <!--Footer -->
+    <div class="col-md-12 footer-box">
+
+
+        <div class="row small-box ">
+            <strong>Mobiles :</strong> <a href="#">samsung</a> |  <a href="#">Sony</a> | <a href="#">Microx</a> | 
+            <a href="#">samsung</a> |  <a href="#">Sony</a> | <a href="#">Microx</a> |<a href="#">samsung</a> |
+              <a href="#">Sony</a> | <a href="#">Microx</a> |<a href="#">samsung</a> |  <a href="#">Sony</a> | 
+            <a href="#">Microx</a> |<a href="#">samsung</a> |  <a href="#">Sony</a> | <a href="#">Microx</a> |
+            <a href="#">samsung</a> |  <a href="#">Sony</a> | <a href="#">Microx</a> |<a href="#">samsung</a> |  
+            <a href="#">Sony</a> | <a href="#">Microx</a> | view all items
+         
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <strong>Send a Quick Query </strong>
+                <hr>
+                <form>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" required="required" placeholder="Nom">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" required="required" placeholder="addresse Email">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <textarea name="message" id="message" required="required" class="form-control" rows="3" placeholder="Message"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Envoyer</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-4">
+                <strong>Our Location</strong>
+                <hr>
+                <p>
+                     234, New york Street,<br />
+                                    Just Location, Lome<br />
+                    Call: +228-93-39-32-21<br>
+                    Email: info@yourdomain.com<br>
+                </p>
+
+                2014 www.yourdomain.com | All Right Reserved
+            </div>
+            <div class="col-md-4 social-box">
+                <strong>We are Social </strong>
+                <hr>
+                <a href="#"><i class="fa fa-facebook-square fa-3x "></i></a>
+                <a href="#"><i class="fa fa-twitter-square fa-3x "></i></a>
+                <a href="#"><i class="fa fa-google-plus-square fa-3x c"></i></a>
+                <a href="#"><i class="fa fa-linkedin-square fa-3x "></i></a>
+                <a href="#"><i class="fa fa-pinterest-square fa-3x "></i></a>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nec nisl odio. Mauris vehicula at nunc id posuere. Curabitur nec nisl odio. Mauris vehicula at nunc id posuere. 
+                </p>
+            </div>
+        </div>
+        <hr>
+    </div>
+    <!-- /.col -->
+    <div class="col-md-12 end-box ">
+        &copy; 2014 | &nbsp; All Rights Reserved | &nbsp; www.yourdomain.com | &nbsp; 24x7 support | &nbsp; Email us: info@yourdomain.com
+    </div>
+    <!-- /.col -->
+    <!--Footer end -->
+    <!--Core JavaScript file  -->
+    
+    <!--bootstrap JavaScript file  -->
+    <script src="{{asset('js/bootstrap.js')}}"></script>
+    <!--Slider JavaScript file  -->
+    <script src="{{asset('ItemSlider/js/modernizr.custom.63321.js')}}"></script>
+    <script src="{{asset('ItemSlider/js/jquery.catslider.js')}}"></script>
+    <script src="{{asset('boostrap/js/bootstrap.min.js')}}"></script>
+    
+    
+    {# {% block JavaScript %} #}
+    {# {% endblock %} #}
+</body>
+</html>
