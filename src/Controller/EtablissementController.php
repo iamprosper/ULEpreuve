@@ -39,6 +39,7 @@ class EtablissementController extends AbstractController
 		if($form->isSubmitted() && $form->isValid()){
 			$manager->persist($etablissement);
 			$manager->flush();
+            return $this->redirectToRoute('etablissement');
 		}
 		
 		return $this->render('etablissement/create.html.twig',[

@@ -10,11 +10,11 @@
         		color: white;
         	}*/
 			section,body>nav{
-				width: 60%;
+				width: 70%;
 				margin:auto;
 			}
 			body{
-				background-color: #2C3E64;
+				background-color: #c9d4eb;
 			}
         </style>
     </head>
@@ -31,13 +31,19 @@
 				    <a class="nav-link" href="{{path('main')}}">Home <span class="sr-only">(current)</span></a>
 				  </li>
 				  <li class="nav-item">
-				    <a class="nav-link" href="{{path('departement')}}">Départements</a>
-				  </li>
-				  <li class="nav-item">
 				    <a class="nav-link" href="{{path('etablissement')}}">Etablissement</a>
 				  </li>
 				  <li class="nav-item">
-				    <a class="nav-link" href="#">About</a>
+				    <a class="nav-link" href="{{path('departement')}}">Départements</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" href="{{path('matiere')}}">Matières</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" href="{{path('semestre')}}">Semestres</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" href="{{path('epreuves')}}">Epreuves</a>
 				  </li>
 				</ul>
 				<!-- <form class="form-inline my-2 my-lg-0">
@@ -47,7 +53,9 @@
 			</div>
 		</nav>
 		<section>
+			<hr/>
         	{% block body %}{% endblock %}
+        	<hr/>
 		</section>
         {% block javascripts %}{% endblock %}
     </body>

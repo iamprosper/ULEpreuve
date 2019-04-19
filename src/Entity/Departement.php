@@ -30,7 +30,7 @@ class Departement
     private $etablissement;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Matiere", mappedBy="departement")
+     * @ORM\OneToMany(targetEntity="App\Entity\Matiere", mappedBy="departement")
      */
     private $matieres;
 
@@ -94,5 +94,13 @@ class Departement
         }
 
         return $this;
+    }
+    /**
+    * toString
+    * @return string
+    */
+    public function __toString()
+    {
+       return $this->libelle;
     }
 }

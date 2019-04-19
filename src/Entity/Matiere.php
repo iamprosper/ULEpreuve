@@ -24,7 +24,8 @@ class Matiere
     private $libelle;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Departement", inversedBy="matieres")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Departement", inversedBy="matieres")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $departement;
 
@@ -35,7 +36,7 @@ class Matiere
 
     public function __construct()
     {
-        $this->departement = new ArrayCollection();
+        // $this->departement = new ArrayCollection();
         $this->epreuves = new ArrayCollection();
     }
 
@@ -56,31 +57,35 @@ class Matiere
         return $this;
     }
 
-    /**
-     * @return Collection|Departement[]
-     */
-    public function getDepartement(): Collection
+    public function getDepartement(): ?Departement
     {
         return $this->departement;
     }
 
-    public function addDepartement(Departement $departement): self
+    public function setDepartement(?Departement $departement): self
     {
-        if (!$this->departement->contains($departement)) {
-            $this->departement[] = $departement;
-        }
+        $this->departement = $departement;
 
         return $this;
     }
 
-    public function removeDepartement(Departement $departement): self
-    {
-        if ($this->departement->contains($departement)) {
-            $this->departement->removeElement($departement);
-        }
+    // public function addDepartement(Departement $departement): self
+    // {
+    //     if (!$this->departement->contains($departement)) {
+    //         $this->departement[] = $departement;
+    //     }
 
-        return $this;
-    }
+    //     return $this;
+    // }
+
+    // public function removeDepartement(Departement $departement): self
+    // {
+    //     if ($this->departement->contains($departement)) {
+    //         $this->departement->removeElement($departement);
+    //     }
+
+    //     return $this;
+    // }
 
     /**
      * @return Collection|Epreuves[]
@@ -111,5 +116,13 @@ class Matiere
         }
 
         return $this;
+    }
+    /**
+    * toString
+    * @return string
+    */
+    public function __toString()
+    {
+       return $this->libelle;
     }
 }

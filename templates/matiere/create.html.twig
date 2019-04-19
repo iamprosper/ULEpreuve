@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Création d'une matière
+{% endblock %}
+{% block body %}
+	<h2>Création d'une matière</h2>
+    {{form_start(formMatiere)}}
+    {{form_row(formMatiere.libelle,{
+    		'attr':{'placeholder':'libelle de la matière'}
+		}
+	)}}
+	{{form_row(formMatiere.departement)}}
+	<button class="btn btn-success" type="submit">Ajouter</button>
+    {{form_end(formMatiere)}}
+    <hr/>
+	<a href="{{path('matiere')}}"><button type="submit" class="btn btn-info">Revenir à la liste</button></a>
+{% endblock %}
