@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EpreuvesRepository")
@@ -17,7 +18,10 @@ class Epreuves
     private $id;
 
     /**
-     * @ORM\Column(type="object")
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank(message="Veuillez choisir un fichier pdf")
+     * @Assert\File(mimeTypes={ "application/pdf" })
      */
     private $file;
 
@@ -27,7 +31,7 @@ class Epreuves
     private $annee;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string")
      */
     private $type;
 
@@ -106,5 +110,14 @@ class Epreuves
         $this->semestre = $semestre;
 
         return $this;
+    }
+    /**
+    * toString
+    * @return string
+    */
+    public function __toString()
+    {
+        $type = ($this->type == 0) ? "Partiel":"Examen";
+        return "Semestre ".$this->semestre." - ".$this->matiere."( ".$type." )";
     }
 }

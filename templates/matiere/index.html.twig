@@ -1,20 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MatiereController!{% endblock %}
+{% block title %}Liste des matières{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+	<!-- S'il y a des matières enregistrées dans la base , j'affiche les départements qui lui sont liés -->
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'E:/Web/symfony/train/src/Controller/MatiereController.php'|file_link(0) }}">src/Controller/MatiereController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'E:/Web/symfony/train/templates/matiere/index.html.twig'|file_link(0) }}">templates/matiere/index.html.twig</a></code></li>
-    </ul>
-</div>
+	{% if nMatieres > 0 %}
+		<h1>Liste des matières</h1>
+		<table class="table table-hover">
+			<thead>
+				<tr class="table-primary">
+					<th scope="row">Départements</th>
+					<th scope="row">Matières</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<!-- Si le département contient des matières associées, je les liste -->
+
+				{% for departement in departements %}
+					{% if departement.matieres|length >0 %}
+						<tr class="table-success">
+							<td rowspan="{{departement.matieres|length +1 }}">{{departement}}</td>
+						</tr>
+						{% for matiere in departement.matieres %}
+							<tr class="table-info">
+								<td>{{matiere}}</td>
+							</tr> 
+						{% endfor %}
+					{% else %}
+
+						<!-- Si le département ne contient pas encore de matières qui lui sont associées alors je le signale à l'admin-->
+
+					    <tr class="table-warning">
+					    	<td>{{departement}}</td>
+					    	<td>Il n'y a pas encores de matières associées au département !!</td>
+					    </tr>
+					{% endif %}
+				{% endfor %}
+			</tbody>
+		</table>
+		{% else %}
+		<p>Il n'y a pas encores de matières enregistrées</p>
+	{% endif %}
+	<hr/>
+	<a href="{{path('matiere_create')}}"><button class="btn btn-info">Ajouter une nouvelle matière</button></a>
 {% endblock %}

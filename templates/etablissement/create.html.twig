@@ -3,9 +3,12 @@
     <h1>Création d'un établissement</h1>
     {{ form_start(formEtablissement) }}
     {{ form_row(formEtablissement.libelle,{
-    	'attr':{'placeholder':'Libelle'}
-    }) }}
-    <button class="btn btn-success" type="submit">Enregistrer</button>
+    		'attr':{'placeholder':'Libelle'}
+    	}
+    ) }}
+    <button class="btn btn-success" type="submit">Ajouter</button>
     {{ form_end(formEtablissement) }}
+    <hr/>
+    <a href="{{path('etablissement')}}"><button type="submit" class="btn btn-info">Revenir à la liste</button></a>
 
 {% endblock %}

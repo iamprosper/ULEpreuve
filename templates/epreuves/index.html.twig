@@ -1,20 +1,30 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Hello EpreuvesController!{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'E:/Web/symfony/train/src/Controller/EpreuvesController.php'|file_link(0) }}">src/Controller/EpreuvesController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'E:/Web/symfony/train/templates/epreuves/index.html.twig'|file_link(0) }}">templates/epreuves/index.html.twig</a></code></li>
-    </ul>
-</div>
+	{% if epreuves|length >0 %}
+		<h2>Liste des épreuves</h2>
+		<table class="table table-hover">
+			<thead>
+				<tr class="table-primary">
+					<th scope="row">Etablissements</th>
+					<th scope="row">Départements</th>
+					<th scope="row">Matières</th>
+					<th scope="row">Epreuves</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for epreuve in epreuves %}
+				    <tr class="table-light">
+				    	<td scope="row">{{epreuve.matiere.departement.etablissement}}</td>
+				    	<td scope="row">{{epreuve.matiere.departement}}</td>
+				    	<td scope="row">{{epreuve.matiere}}</td>
+				    	<td scope="row"><a href="{{asset('uploads/epreuves/' ~ epreuve.file)}}">{{epreuve}}</a></td>
+				    </tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		{% else %}
+	    <p>Il n' y a pas encore d'épreuves enregistrées</p>
+	{% endif %}
+	<hr/>
+    <a href="{{path('epreuves_create')}}"><button class="btn btn-info">Ajouter une nouvelle épreuve</button></a>
 {% endblock %}

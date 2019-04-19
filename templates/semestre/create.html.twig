@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{form_start(formSemestre)}}
+    {{form_widget(formSemestre)}}
+    <button type="submit" class="btn btn-success">Ajouter</button>
+    {{form_end(formSemestre)}}
+    <hr>
+    <a href="{{path('semestre')}}"><button class="btn btn-info">Revenir à la liste de semestre</button></a>
+{% endblock %}

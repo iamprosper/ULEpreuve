@@ -3,24 +3,48 @@
 {% block title %}Hello DepartementController!{% endblock %}
 
 {% block body %}
+	
+	<!-- Dès qu'il y a un département dans la base, je parcours la liste d'établissements en affichant les départements qui lui sont associés -->
+	
+	{% if nDepartements|length > 0 %}
+		<h1>Liste des départements</h1>
+		<table class="table table-hover">
+			<thead>
+			    <tr class="table-primary">
+			      <th scope="row">Etablissements</th>
+			      <th scope="row">Départements</th>
+			    </tr>
+			</thead>
+		  	<tbody>
+				{% for etablissement in etablissements %}
+
+					<!-- Dès que l'établissement courant a des départements, je les affiche -->
+
+					{% if etablissement.departements|length >0 %}
+						<tr class="table-success">
+							<td scope="row" rowspan="{{etablissement.departements|length +1}}">{{etablissement}}</td>
+						</tr>
+						{% for departement in etablissement.departements %}
+							<tr class="table-info">
+								<td>{{departement}}</td>
+							</tr>
+						{% endfor %}
+
+					{% else %}
+
+						<!-- S'il n'en n'a pas je l'indique à l'administrateur -->
+
+						<tr class="table-warning">
+							<td scope="row">{{etablissement}}</td>
+							<td>Il n'y a pas encore de départements associés à cet établissement !!</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+		  	</tbody>
+		</table>
+	{% else %}
+	    <p>Il n'y a pas encore de départements enregistrés dans la base</p>
+	{% endif %}
 	<hr/>
-	<h1>Liste des départements</h1>
-	<hr/>
-	<table class="table table-hover">
-		<thead>
-		    <tr class="table-primary">
-		      <th scope="row">Départements</th>
-		      <th scope="row">Etablissements</th>
-		    </tr>
-		</thead>
-	  	<tbody>
-			{% for departement in departements %}
-				<tr class="table-light">
-					<td scope="row">{{departement.libelle}}</td>
-					<td>{{departement.etablissement}}</td>
-				</tr>
-			{% endfor %}
-	  	</tbody>
-	</table>
     <a href="{{path('departement_create')}}"><button class="btn btn-info">Ajouter un nouveau département</button></a>
 {% endblock %}

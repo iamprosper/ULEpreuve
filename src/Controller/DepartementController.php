@@ -5,8 +5,8 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Departement;
-// use App\Entity\Etablissement;
 use App\Repository\DepartementRepository;
+use App\Repository\EtablissementRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Form\DepartementType;
@@ -16,12 +16,16 @@ class DepartementController extends AbstractController
     /**
      * @Route("/departement", name="departement")
      */
-    public function index(DepartementRepository $repo)
+    public function index(EtablissementRepository $repo)
     {
         // $repoEt = $this->getDoctrine()->getRepository(Etablissement::class);
-        $departements = $repo->findAll();
+
+        //Je récupère la liste d'établissements
+        $etablissements = $repo->findAll();
+        $nDepartements = count($repo->findAll());
         return $this->render('departement/index.html.twig', [
-            'departements'=> $departements
+            'nDepartements'=> $nDepartements,
+            'etablissements'=> $etablissements
         ]);
     }
 
@@ -40,6 +44,7 @@ class DepartementController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $manager->persist($departement);
             $manager->flush();
+            return $this->redirectToRoute('departement');
         }
     	return $this->render('departement/create.html.twig',[
     		'formDepartement'=>$form->createView()
