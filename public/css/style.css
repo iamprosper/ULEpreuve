@@ -50,7 +50,7 @@ padding: 15px 80px 15px 60px;
 color: #000000;
 }
 .navbar-default {
-background-color: #000000;
+background-color: #5011a3;
 border-color: #000000;
 }
 .navbar {
@@ -204,4 +204,41 @@ background-color:#EB0429;
      color:#fff;
      background-color:#000;
      font-size:14px;
+}
+
+/* 
+    ===========  CSS approprie =====
+    ================================
+ */
+ .arplan{
+     background-color: #edf1f5;
+ }
+ .alert-info{
+     background-color: white;
+     border-color: white;
+ }
+.cart-banier{
+    padding-top: 2%;
+    padding-left: 3%;
+    display: inline-block;
+    height: 30px;
+    width: 100%;
+    background-color: rgba(241, 231, 94, 0.9);
+}
+.angle{
+    height: 20px;
+    width: 20px;
+    background-color: #096FC0;
+}
+/* barre de nav des etablissements */
+.navbar-ets{
+    background-color: rgb(211, 214, 38);
+    border-color: #000000;
+}
+.ref-cart{
+    text-decoration: none;
+    color: #000;
+}
+.alert-info:hover{
+    background-color: thistle;
 }

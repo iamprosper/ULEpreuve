@@ -1,0 +1,17 @@
+{% extends 'baseUser.html.twig' %}
+{% block title %}Epreuves{% endblock %}
+{% block body %}
+    <p>Pour obtenir une epreuve veuillez selectionnez un etablissement !</p>
+    <div class="navbar navbar-ets">    
+        <ul class="nav navbar-nav">
+            {% for etablissement in etablissements %}
+                <li><a href="{{ path('u_epreuves',{'ets':etablissement.id}) }}">{{etablissement}}</a></li>
+            {% endfor %}
+            <li class="active"><a href="#">Accueil</a></li>
+            
+        </ul>
+    </div>
+    <h1>Epreuves</h1>
+    
+    {{ include("userEpreuves/content.html.twig") }}
+{% endblock %}

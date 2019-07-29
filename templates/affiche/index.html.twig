@@ -1,0 +1,69 @@
+{% extends 'baseUser.html.twig' %}
+
+{% block title %}Tableau d'affichage{% endblock %}
+
+{% block body %}
+<div>
+    <h1>Tableau d'affichage</h1>
+    <div class="container">
+        {# <div class="col-lg-4">
+            <div class="alert span5 alert-info">
+                <div class="angle"></div>
+                    <h3>Information importante!</h3>
+                    L'utilisation de la classe <strong>alert</strong> n'est pas sans
+                    danger pour les yeux  fatigués des pauvres internautes,
+                    et je vous demande instamment de l'utiliser avec parcimonie...
+                    <div class="cart-banier">Ali noo 12pm</div>
+            </div>
+        </div> #}
+        {% for affichage in affiches %}
+           <div class="col-lg-4">
+           <a href="#" class="ref-cart">
+            <div class="alert span5 alert-info">
+                <div class="angle"></div>
+                    <h3>{{affichage.titre}}</h3>
+                    {{affichage.description}}
+                    <div class="cart-banier">{{affichage.createAt|date}} par {{affichage.auteur.username}}</div>
+            </div>
+            </a>
+        </div>
+        {% endfor %}
+         {# <div class="col-lg-4">
+            <div class="alert span5 alert-info">
+                <div class="angle"></div>
+                    <h3>Information importante!</h3>
+                    L'utilisation de la classe <strong>alert</strong> n'est pas sans
+                    danger pour les yeux  fatigués des pauvres internautes,
+                    et je vous demande instamment de l'utiliser avec parcimonie...
+                    <div class="cart-banier">Ali noo 12pm</div>
+            </div>
+        </div>
+         <div class="col-lg-4">
+            <div class="alert span5 alert-info">
+                <div class="angle"></div>
+                    <h3>Information importante!</h3>
+                    L'utilisation de la classe <strong>alert</strong> n'est pas sans
+                    danger pour les yeux  fatigués des pauvres internautes,
+                    et je vous demande instamment de l'utiliser avec parcimonie...
+                    <div class="cart-banier">Ali noo 12pm</div>
+            </div>
+        </div>
+         <div class="col-lg-4">
+            <div class="alert span5 alert-info">
+                <div class="angle"></div>
+                    <h3>Information importante!</h3>
+                    L'utilisation de la classe <strong>alert</strong> n'est pas sans
+                    danger pour les yeux  fatigués des pauvres internautes,
+                    et je vous demande instamment de l'utiliser avec parcimonie...
+                    <div class="cart-banier">Ali noo 12pm</div>
+            </div>
+        </div> #}
+        <div class="container">
+        </div>
+    {{form_start(form)}}
+    {{form_widget(form)}}
+    </br>
+    <button class="btn btn-success" type="submit">Ajouter</button>
+    {{form_end(form)}}
+</div>
+{% endblock %}

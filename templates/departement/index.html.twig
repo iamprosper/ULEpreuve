@@ -22,7 +22,7 @@
 
 					{% if etablissement.departements|length >0 %}
 						<tr class="table-success">
-							<td scope="row" rowspan="{{etablissement.departements|length +1}}">{{etablissement}}</td>
+							<td scope="row" rowspan="{{etablissement.departements|length+1}}">{{etablissement}}</td>
 						</tr>
 						{% for departement in etablissement.departements %}
 							<tr class="table-info">

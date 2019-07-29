@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Serializable;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -10,8 +11,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UtilisateurRepository")
+ * @ORM\Table(name="fos_user")
  */
-class Utilisateur implements UserInterface
+class Utilisateur implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -61,7 +63,7 @@ class Utilisateur implements UserInterface
      * @ORM\Column(type="string", length=255)
      * @Assert\EqualTo(propertyPath="password", message="Les mots de passe se different")
      */
-    public $confirm_password;
+    private $confirm_password;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -74,10 +76,27 @@ class Utilisateur implements UserInterface
      */
     private $sexe;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="auteur")
+     */
+    private $comments;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Affiche", inversedBy="likes")
+     */
+    private $liker;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Affiche", mappedBy="auteur")
+     */
+    private $affiches;
+
     public function __construct()
     {
         $this->setCreatedAt(new \DateTime);
         $this->setUptodateAt(new \DateTime);
+        $this->comments = new ArrayCollection();
+        $this->affiches = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -169,6 +188,17 @@ class Utilisateur implements UserInterface
         return $this;
     }
 
+    public function setConfirmPassword(string $confirm_password): self
+    {
+        $this->confirm_password= $confirm_password;
+
+        return $this;
+    }
+    public function getConfirmPassword(): ?string
+    {
+        return $this->confirm_password;
+    }
+
     public function getEmail(): ?string
     {
         return $this->email;
@@ -193,9 +223,124 @@ class Utilisateur implements UserInterface
         return $this;
     }
     public function eraseCredentials(){}
-        public function getSalt(){}
-        public function getRoles(){
-            return ['ROLE_USER'];
+    
+    public function getSalt(){}
+    
+    public function getRoles(){
+        return ['ROLE_USER'];
+    }
+    
+    /**
+     * @see \Serializable::serialize()
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->email,
+            $this->username,
+            $this->nom,
+            $this->prenom,
+            $this->password,
+            $this->confirm_password,
+            $this->dateNaissance,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    /**
+     * @see \Serializable::unserialize()
+     */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->email,
+            $this->username,
+            $this->nom,
+            $this->prenom,
+            $this->password,
+            $this->confirm_password,
+            $this->dateNaissance,
+            // see section on salt below
+            // $this->salt
+        ) = unserialize($serialized);
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setAuteur($this);
         }
 
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getAuteur() === $this) {
+                $comment->setAuteur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getLiker(): ?Affiche
+    {
+        return $this->liker;
+    }
+
+    public function setLiker(?Affiche $liker): self
+    {
+        $this->liker = $liker;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Affiche[]
+     */
+    public function getAffiches(): Collection
+    {
+        return $this->affiches;
+    }
+
+    public function addAffich(Affiche $affich): self
+    {
+        if (!$this->affiches->contains($affich)) {
+            $this->affiches[] = $affich;
+            $affich->setAuteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAffich(Affiche $affich): self
+    {
+        if ($this->affiches->contains($affich)) {
+            $this->affiches->removeElement($affich);
+            // set the owning side to null (unless already changed)
+            if ($affich->getAuteur() === $this) {
+                $affich->setAuteur(null);
+            }
+        }
+
+        return $this;
+    }
 }
+
+

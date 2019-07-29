@@ -33,7 +33,7 @@ class Semestre
         $this->epreuves = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -86,6 +86,6 @@ class Semestre
     */
     public function __toString()
     {
-       return $this->libelle;
+       return "Semestre ".$this->libelle;
     }
 }

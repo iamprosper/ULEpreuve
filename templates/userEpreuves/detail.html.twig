@@ -1,0 +1,13 @@
+{% extends 'baseUser.html.twig' %}
+
+{% block title %}Epreuves{% endblock %}
+
+{% block body %}
+    <h1>Epreuves</h1>
+        <a href="#">
+            <div class="alert alert-success" role="alert">
+                 {{epreuve.file}} &nbsp; {{epreuve.annee|date("m/d/Y")}}
+            </div> 
+        </a>
+    
+{% endblock %}

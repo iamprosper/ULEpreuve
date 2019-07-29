@@ -3,11 +3,16 @@
 namespace App\Form;
 
 use App\Entity\Epreuves;
+use App\Entity\Semestre;
+use App\Entity\TypeEvaluation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class EpreuveType extends AbstractType
 {
@@ -16,14 +21,15 @@ class EpreuveType extends AbstractType
         $builder
             ->add('file',FileType::class)
             ->add('annee')
-            ->add('type',ChoiceType::class,[
-                'choices' => [
-                    'Partiel' => '0',
-                    'Examen'  => '1'
-                ]
+            ->add('type',EntityType::class,[
+                'class'=>TypeEvaluation::class,
+                'choice_label'=>'libelle'
             ])
             ->add('matiere')
-            ->add('semestre')
+            ->add('semestre',EntityType::class,[
+                'class'=>Semestre::class,
+                'choice_label'=>'libelle'
+            ])
         ;
     }
 

@@ -1,0 +1,55 @@
+{% extends 'baseUser.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block body %}
+{% if app.user  %}
+<div class="col-md-4">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Nom d'utilisateur</h3>
+        </div>
+        <div class="panel-body">{{ utilisateur.username }}</div>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Email</h3>
+        </div>
+        <div class="panel-body">{{ utilisateur.email }}</div>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Nom</h3>
+        </div>
+        <div class="panel-body">{{ utilisateur.nom }}</div>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Prenom</h3>
+        </div>
+        <div class="panel-body">{{ utilisateur.prenom }}</div>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Email</h3>
+        </div>
+        <div class="panel-body">{{ utilisateur.email }}</div>
+    </div>
+</div>
+ <a href="{{ path('edition') }}">Editer</a>
+    <a href="{{ path('suppression') }}">Supprimer</a>
+<div class="col-md-8">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">Titre</h3>
+        </div>
+        
+        <div class="panel-body">Contenu</div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

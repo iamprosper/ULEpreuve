@@ -34,9 +34,15 @@ class Departement
      */
     private $matieres;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Affiche", mappedBy="departement")
+     */
+    private $affiches;
+
     public function __construct()
     {
         $this->matieres = new ArrayCollection();
+        $this->affiches = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -102,5 +108,36 @@ class Departement
     public function __toString()
     {
        return $this->libelle;
+    }
+
+    /**
+     * @return Collection|Affiche[]
+     */
+    public function getAffiches(): Collection
+    {
+        return $this->affiches;
+    }
+
+    public function addAffich(Affiche $affich): self
+    {
+        if (!$this->affiches->contains($affich)) {
+            $this->affiches[] = $affich;
+            $affich->setDepartement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAffich(Affiche $affich): self
+    {
+        if ($this->affiches->contains($affich)) {
+            $this->affiches->removeElement($affich);
+            // set the owning side to null (unless already changed)
+            if ($affich->getDepartement() === $this) {
+                $affich->setDepartement(null);
+            }
+        }
+
+        return $this;
     }
 }

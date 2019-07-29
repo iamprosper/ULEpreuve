@@ -1,15 +1,22 @@
 <?php
 
 namespace App\Controller;
-
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Epreuves;
-use App\Repository\EpreuvesRepository;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\HttpFoundation\Request;
 use App\Form\EpreuveType;
+use App\Entity\TypeEvaluation;
+use App\Repository\MatiereRepository;
+use App\Repository\EpreuvesRepository;
+use App\Repository\SemestreRepository;
+use App\Repository\DepartementRepository;
+use App\Repository\EtablissementRepository;
+use App\Repository\TypeEvaluationRepository;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class EpreuvesController extends AbstractController
@@ -84,4 +91,52 @@ class EpreuvesController extends AbstractController
     private function generateUniqueFileName(){
         return md5(uniqid());
     }
+     /**
+     * @Route("/uepreuves/", name="u_epreuves")
+     * 
+     */
+    public function UserIndex(Request $request, EpreuvesRepository $repEpreuve,DepartementRepository $depRep, EtablissementRepository $etsRep,SemestreRepository $semRep, MatiereRepository $matiere, TypeEvaluationRepository $type)
+    { 
+        $dep =  $request->query->get('departement');
+        $ets =  $request->query->get('ets');
+        $ue =  $request->query->get('ue');
+        $semestre =  $request->query->get('semestre');
+        $userEpreuves = $repEpreuve->findAll();
+        $annee = $request->query->get('annee');
+        $evaluation =  $request->query->get('evaluation');
+        // var_dump(strlen($evaluation));
+        //pour le filtrer
+        $option = $userEpreuves;
+        if($ue||$semestre||$annee||$evaluation){
+            $ue = $matiere->find($ue);
+            $userEpreuves = $repEpreuve->matiereFilter($ue,$semestre,$annee,$evaluation);
+        }
+        $matieres = $matiere->findAll();
+        $ets = $etsRep->findAll();
+        $semestres = $semRep->findAll();
+        $departements = $depRep->findAll();
+        $types = $type->findAll();
+        return $this->render('userEpreuves/index.html.twig', [
+            'epreuves' =>  $userEpreuves,
+            'departements'=>$departements,
+            'etablissements'=>$ets,
+            'depn'=>$dep,
+            'ets'=>$ets,
+            'matieres'=>$matieres,
+            'opepreuves'=>$option,
+            'semestres'=>$semestres,
+            'evaluations'=>$types
+        ]);
+    }
+    /**
+     * @Route("/epreuveDetail-{id}", name="detail_epreuves")
+     */
+    public function UserEpeuveDetail(EpreuvesRepository $repEpreuve,$id)
+    {
+    	$userEpreuve = $repEpreuve->find($id);
+        return $this->render('userEpreuves/detail.html.twig', [
+            'epreuve' =>  $userEpreuve
+        ]);
+    }
+    
 }

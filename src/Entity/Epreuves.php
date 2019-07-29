@@ -26,14 +26,9 @@ class Epreuves
     private $file;
 
     /**
-     * @ORM\Column(type="date")
-     */
-    private $annee;
-
-    /**
      * @ORM\Column(type="string")
      */
-    private $type;
+    private $annee;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Matiere", inversedBy="epreuves")
@@ -46,6 +41,12 @@ class Epreuves
      * @ORM\JoinColumn(nullable=false)
      */
     private $semestre;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\TypeEvaluation", inversedBy="epreuves")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $type;
 
     public function getId(): ?int
     {
@@ -64,26 +65,14 @@ class Epreuves
         return $this;
     }
 
-    public function getAnnee(): ?\DateTimeInterface
+    public function getAnnee()
     {
         return $this->annee;
     }
 
-    public function setAnnee(\DateTimeInterface $annee): self
+    public function setAnnee($annee): self
     {
         $this->annee = $annee;
-
-        return $this;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): self
-    {
-        $this->type = $type;
 
         return $this;
     }
@@ -117,7 +106,18 @@ class Epreuves
     */
     public function __toString()
     {
-        $type = ($this->type == 0) ? "Partiel":"Examen";
-        return "Semestre ".$this->semestre." - ".$this->matiere."( ".$type." )";
+        return "".$this->type;
+    }
+
+    public function getType(): ?TypeEvaluation
+    {
+        return $this->type;
+    }
+
+    public function setType(?TypeEvaluation $type): self
+    {
+        $this->type = $type;
+
+        return $this;
     }
 }
